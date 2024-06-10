@@ -7,7 +7,7 @@ import('node-fetch').then((fetch) => {
     const db = new sqlite3.Database('./rss_feed.db');
 
     const homeserverUrl = "YOUR_MATRIX_URL";
-    const accessToken = "AUTH_TOKEN"; // Inserisci il tuo access token qui
+    const accessToken = "AUTH_TOKEN";
 
     // Configuration of RSS feeds
     const feeds = [
