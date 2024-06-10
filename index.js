@@ -1,18 +1,29 @@
 import('node-fetch').then((fetch) => {
+    const fs = require('fs');
+    const path = require('path');
     const RSSParser = require('rss-parser');
     const sqlite3 = require('sqlite3').verbose();
 
     const parser = new RSSParser();
     const db = new sqlite3.Database('./rss_feed.db');
 
-    const homeserverUrl = "YOUR_MATRIX_URL";
-    const accessToken = "AUTH_TOKEN";
+    // Read configuration from external files
+    const configPath = path.resolve(__dirname, 'config.json');
+    const feedsPath = path.resolve(__dirname, 'feeds.json');
 
-    // Configuration of RSS feeds
-    const feeds = [
-        { url: 'RSS_URL', roomId: 'MATRIX_ROOM_ID' },
-        { url: 'RSS_URL', roomId: 'MATRIX_ROOM_ID' }
-    ];
+    let config;
+    let feeds;
+
+    try {
+        config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
+        feeds = JSON.parse(fs.readFileSync(feedsPath, 'utf8'));
+    } catch (error) {
+        console.error('Failed to read configuration files:', error);
+        process.exit(1);
+    }
+
+    const homeserverUrl = config.homeserverUrl;
+    const accessToken = config.accessToken;
 
     // Initialize SQLite database
     db.serialize(() => {
