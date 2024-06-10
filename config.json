@@ -1,0 +1,4 @@
+{
+    "homeserverUrl": "YOUR_MATRIX_URL",
+    "accessToken": "AUTH_TOKEN"
+}
