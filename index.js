@@ -1,5 +1,4 @@
 import('node-fetch').then((fetch) => {
-    // Il resto del codice va qui
     const RSSParser = require('rss-parser');
     const sqlite3 = require('sqlite3').verbose();
 
